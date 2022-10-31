@@ -1,0 +1,15 @@
+{
+  $jsonSchema: {
+    required: [
+      'username',
+      'password',
+      'email'
+    ],
+    properties: {
+      username: {
+        bsonType: 'string',
+        minLength: 5
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
 # backend
 
-npm i 
+# npm i 
 
 
 =====================
-npm run server
+# npm run server
+# password "123" for all users

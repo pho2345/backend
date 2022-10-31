@@ -1,36 +1,103 @@
 const db = require("../models");
 const Product = db.product;
-exports.find = (req, res) => {
-   
-  var  page = req.query.page ?  req.query.page : 1 ;
+const Brand = db.brand;
+const ObjectId = require("mongoose").Types.ObjectId;
+exports.find = async (req, res) => {
+  var page = req.query.page ? req.query.page : 1;
   delete req.query?.page;
 
-  Product.find({ ...req.query })
-    .limit(1)
-    .skip((page-1) * 8)
+  const ex = new RegExp(req.query.nameproduct, "i");
+  const array = req.query.brands
+    ? req.query.brands.split(",").map((e) => ObjectId(e))
+    : [];
+  const filter = req.query.brands
+    ? {
+        nameproduct: ex,
+        brand: {
+          $in: array,
+        },
+      }
+    : {
+        nameproduct: ex,
+      };
+
+  Product.find(filter)
+    .limit(2)
+    .skip((page - 1) * 8)
     .populate("brand", "-_id")
     .exec((err, product) => {
-      
       if (err) {
         res.status(500).send({ message: err });
         return;
       }
-      Product.count((err, count ) => {
+      Product.find(filter).count((err, count) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
         }
-        
-        res.status(200).send({
-            value : product,
-            count : count 
-         });
-        return
 
-      })
-      
-      
+        res.status(200).send({
+          value: product,
+          count: count,
+        });
+        return;
+      });
     });
+
+  // Use aggregate
+  /* const array = req.query.brands.split(",").map((e) => ObjectId(e));
+  const ex = new RegExp(req.query.nameproduct, "i");
+  var data = await Product.aggregate([
+    {
+      $match: {
+        nameproduct: ex,
+        brand: {
+          $in: array,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "brand",
+        foreignField: "_id",
+        as: "brand",
+      },
+    },
+    {
+      $count: "count",
+    },
+    {
+      $skip: (page - 1) * 8,
+    },
+    {
+      $limit: 2,
+    },
+  ]);
+  
+   var count  = await Product.aggregate([
+    {
+      $match: {
+        nameproduct: ex,
+        brand: {
+          $in: array,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "brand",
+        foreignField: "_id",
+        as: "brand",
+      },
+    },
+    {
+      $count: "count",
+    }
+    
+  ]);*/
+  // res.end();
 };
 
 exports.insert = (req, res) => {
@@ -51,15 +118,10 @@ exports.insert = (req, res) => {
 
 exports.update = (req, res) => {
   var idProduct = req.body._id;
-  var productSet = {
-    ...req.body,
-  };
-  delete productSet._id;
-
   Product.findByIdAndUpdate(
     idProduct,
-    { $set: productSet },
-    { useFindAndModify: false },
+    { $set: { ...req.body.productSet } },
+    { useFindAndModify: false, runValidators: true },
     (err, docs) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -76,8 +138,8 @@ exports.update = (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  var product_id = req.body._id;
-  Brand.findByIdAndRemove(
+  var product_id = req.body.productId._id;
+  Product.findByIdAndRemove(
     product_id,
     { useFindAndModify: false },
     (err, docs) => {

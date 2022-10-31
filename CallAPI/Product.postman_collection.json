@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "6bf1a257-09b8-44c5-90ed-35b34a43365c",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15379060"
+	},
+	"item": [
+		{
+			"name": "insert_product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nameproduct\": \"Nuoc hoa 5\",\r\n  \"price\": 300,\r\n  \"quantity\": 3,\r\n  \"brand\": {\r\n    \"_id\": \"635e8f5e5cfc1a6dc76b6d90\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/product/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"product",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter_product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/product?brands=635e8f5e5cfc1a6dc76b6d90&nameproduct=nuoc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "brands",
+							"value": "635e8f5e5cfc1a6dc76b6d90"
+						},
+						{
+							"key": "nameproduct",
+							"value": "nuoc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_product",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\" : \"635e941959d2ca55d55df001\",\r\n    \"productSet\" : {\r\n        \"quantity\" : -1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/product/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"product",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\" : {\r\n        \"_id\" : \"635e941959d2ca55d55df001\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/product/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"product",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

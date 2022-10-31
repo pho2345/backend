@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "635a698a5b5f58bd7b43d0dd"
+  },
+  "nameproduct": "Nuoc hoa 1",
+  "price": 100,
+  "quantity": 1,
+  "brand": {
+    "$oid": "635811d5afd067201ffe622d"
+  }
+},{
+  "_id": {
+    "$oid": "635e906d59d2ca55d55deff5"
+  },
+  "nameproduct": "Nuoc hoa 2",
+  "price": 200,
+  "quantity": 2,
+  "brand": {
+    "$oid": "635811d5afd067201ffe622d"
+  }
+},{
+  "_id": {
+    "$oid": "635e907559d2ca55d55deff8"
+  },
+  "nameproduct": "Nuoc hoa 3",
+  "price": 300,
+  "quantity": 3,
+  "brand": {
+    "$oid": "635811d5afd067201ffe622d"
+  }
+},{
+  "_id": {
+    "$oid": "635e940d59d2ca55d55deffb"
+  },
+  "nameproduct": "Nuoc hoa 4",
+  "price": 300,
+  "quantity": 3,
+  "brand": {
+    "$oid": "635e8f5e5cfc1a6dc76b6d90"
+  }
+},{
+  "_id": {
+    "$oid": "635fa8f711d3e879d46aa3a8"
+  },
+  "nameproduct": "Nuoc hoa 6",
+  "price": 300,
+  "quantity": 3,
+  "brand": {
+    "$oid": "635e8f5e5cfc1a6dc76b6d90"
+  }
+}]

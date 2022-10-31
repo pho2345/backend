@@ -1,0 +1,9 @@
+{
+  $jsonSchema: {
+    required: [
+      'total',
+      'user_id'
+    ],
+    properties: {}
+  }
+}

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 //mongoose.set('useFindAndModify', false);
 const db = {};
@@ -11,6 +11,8 @@ db.brand = require("./brand.model");
 db.product = require("./product.model");
 db.cart = require("./cart.model");
 db.detailcart = require("./detailCart.model");
+db.bill = require("./bill.model");
+db.detailbill = require("./detailBill.model");
 db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;

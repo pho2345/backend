@@ -10,7 +10,7 @@ checkNameBrand = (req, res, next) => {
       return;
     }
 
-    if (brand) {
+    if (brand && req.body.nameset) {
       if (req.body.nameset) {
         Brand.findOne({
           namebrand: req.body.nameset,
@@ -21,23 +21,43 @@ checkNameBrand = (req, res, next) => {
           }
 
           if (brandnew) {
-            res
-              .status(400)
-              .send({ message: "Failed! brand name is already in use!" });
+            res.status(400).send({
+              message: "Failed! brand name is already or  not exists!!",
+            });
             return;
           }
-          next();
         });
-      }
-      else{
-        res.status(400).send({ message: "Failed! brandname is already in use!" });
+        return;
+      } else {
+        res
+          .status(400)
+          .send({ message: "Failed! brandname is already or not exists!" });
         return;
       }
-      
+    }
+    if (!brand && req.body.nameset) {
+      res.status(400).send({
+        message: "Failed! brand name is already or  not exists!!",
+      });
+      return;
     }
     next();
 
     // Email
+  });
+};
+
+checkIdBrand = (req, res, next) => {
+  Brand.findById(req.body.brand._id).exec((err, brand) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (!brand) {
+      res.status(400).send({ message: "brand not exists" });
+      return;
+    }
+    next();
   });
 };
 
@@ -59,7 +79,7 @@ checkNameBrand = (req, res, next) => {
 // };
 
 const verifyBrand = {
-  checkNameBrand
- 
+  checkNameBrand,
+  checkIdBrand,
 };
 module.exports = verifyBrand;

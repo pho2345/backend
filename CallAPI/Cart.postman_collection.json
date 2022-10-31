@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "491802cb-e071-43c7-8156-1d4862022b1a",
+		"name": "Cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15379060"
+	},
+	"item": [
+		{
+			"name": "insert_cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/cart/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cart",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

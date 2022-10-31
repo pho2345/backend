@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "d833b3ca-aa04-4d6e-a5a9-23a335dc749d",
+		"name": "Brand",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15379060"
+	},
+	"item": [
+		{
+			"name": "search_Brand",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/brand",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_Brand",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNDJmYjhlMTAyMjg2MDhmMGUwODAzMSIsImlhdCI6MTY2NTMzNDE3NywiZXhwIjoxNjY1NDIwNTc3fQ.azg3qXqznCHv1quu51JjSFnr_rQ66H6C83gVjvMSXrw",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"namebrand\" : \"Dior\",\r\n    \"nameset\" : \"Dior_pro\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/brand/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brand",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insert_Brand",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWIzYzg5YjdiYTM3OGQ2ZTljOWU2YiIsImlhdCI6MTY2NzExNDA4MywiZXhwIjoxNjY3MjAwNDgzfQ.VTynH2puAanDucrB8qniliODdcPjDL9hcobaP2yAqNs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"namebrand\" : \"Dior\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/brand/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brand",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_Brand",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\" : \"63581006112698cdf58ca227\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/brand/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"brand",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

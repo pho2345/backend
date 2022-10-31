@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "635faf9b2065c0cc0d7d41c4"
+  },
+  "total": 3600,
+  "user_id": {
+    "$oid": "635fa2166d1d6fe2f3ae457d"
+  },
+  "time": {
+    "$date": {
+      "$numberLong": "1667215104610"
+    }
+  },
+  "status": 0
+}]

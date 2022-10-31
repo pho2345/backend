@@ -1,0 +1,26 @@
+{
+  $jsonSchema: {
+    required: [
+      'quantity',
+      'cartId',
+      'productId',
+      'price'
+    ],
+    properties: {
+      quantity: {
+        bsonType: 'int',
+        minimum: -1
+      },
+      cartId: {
+        bsonType: 'objectId'
+      },
+      productId: {
+        bsonType: 'objectId'
+      },
+      price: {
+        bsonType: 'int',
+        minimum: 1
+      }
+    }
+  }
+}

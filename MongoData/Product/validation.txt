@@ -1,0 +1,27 @@
+{
+  $jsonSchema: {
+    required: [
+      'nameproduct',
+      'price',
+      'brand',
+      'quantity'
+    ],
+    properties: {
+      nameproduct: {
+        bsonType: 'string',
+        maxLength: 100
+      },
+      price: {
+        bsonType: 'int',
+        minimum: 1
+      },
+      quantity: {
+        bsonType: 'int',
+        minimum: 0
+      },
+      brand: {
+        bsonType: 'objectId'
+      }
+    }
+  }
+}

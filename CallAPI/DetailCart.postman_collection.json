@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "ae139227-ebb6-42f8-9524-1d62c8e01207",
+		"name": "DetailCart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15379060"
+	},
+	"item": [
+		{
+			"name": "insert_or_update_detailcart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\" : 10,\r\n    \"productId\" : \r\n        {\r\n            \"_id\" : \"635e940d59d2ca55d55deffb\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/detailcart/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailcart",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "showall_detailcart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/detailcart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailcart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OnePartTotal_detailcart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"productId\" : [\"635a698a5b5f58bd7b43d0dd\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/detailcart/oneparttotal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailcart",
+						"oneparttotal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total_detailcart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/detailcart/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailcart",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_multi_detailcart",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWVjODdjMjZlMjQxYTQ2NGJlNDRhYSIsImlhdCI6MTY2NzE1NjE2MCwiZXhwIjoxNjY3MjQyNTYwfQ.ReSnMwwdfR0L9GR20UjDBzFuhlfuo7dsb5t1Hf35lME",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\" : [\"635a698a5b5f58bd7b43d0dd\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/detailcart/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailcart",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,4 +1,9 @@
-const { verifyDetailCart } = require("../middlewares");
+const {
+  verifyDetailCart,
+  verifyCart,
+  verifyProduct,
+  authJwt,
+} = require("../middlewares");
 const controller = require("../controllers/detailCart.controller");
 
 module.exports = function (app) {
@@ -13,21 +18,39 @@ module.exports = function (app) {
   app.post(
     "/api/detailcart/insert",
     [
-      verifyDetailCart.checkIdCart,
-      verifyDetailCart.checkIdProduct,
+      authJwt.verifyToken,
+      verifyCart.checkIdCart,
+      verifyProduct.checkIdProduct,
       verifyDetailCart.checkProductInDetail,
     ],
     controller.insert
   );
 
-  app.post("/api/detailcart", [], controller.find);
+  app.get("/api/detailcart", [authJwt.verifyToken], controller.find);
 
-  app.post(
+  app.delete(
     "/api/detailcart/delete",
     [
+      authJwt.verifyToken,
       verifyDetailCart.checkIdCartInDetail,
       verifyDetailCart.checkMultiProductInDetail,
     ],
     controller.delete
+  );
+
+  app.get(
+    "/api/detailcart/total",
+    [authJwt.verifyToken, verifyDetailCart.checkIdCartInDetail],
+    controller.sumtotal
+  );
+
+  app.post(
+    "/api/detailcart/oneparttotal",
+    [
+      authJwt.verifyToken,
+      verifyDetailCart.checkIdCartInDetail,
+      verifyDetailCart.checkMultiProductInDetail,
+    ],
+    controller.onePartTotal
   );
 };

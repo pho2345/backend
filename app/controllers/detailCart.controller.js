@@ -1,31 +1,41 @@
-const { detailcart, product } = require("../models");
 const db = require("../models");
+const Cart = require("../models/cart.model");
 const DetailCart = db.detailcart;
 const Product = db.product;
-
+const ObjectId = require("mongoose").Types.ObjectId;
 
 exports.insert = (req, res) => {
   if (req.check) {
-    DetailCart.findOneAndUpdate({
-      cartId: req.body.cartId,
-      productId: req.body.productId
-    }, { quantity: req.quantity + req.body.quantity }, (err, detailcart) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+    const opts = { runValidators: true };
+    DetailCart.findOneAndUpdate(
+      {
+        cartId: req.cartId,
+        productId: req.body.productId,
+      },
+      { quantity: req.quantity + req.body.quantity },
+      opts,
+      (err, detailcart) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
 
-      if (detailcart) {
-        res.status(200).send({ message: "Update success" });
+        if (detailcart) {
+          res.status(200).send({ message: "Update success" });
+        }
+        res.end();
       }
-      res.end();
-    })
-  }
-  else {
+    );
+  } else {
     const detailcart = new DetailCart({
       ...req.body,
-      price: req.price
+      cartId: {
+        _id: req.cartId,
+      },
+      price: req.price,
     });
+    const err = detailcart.validateSync();
+    //console.log(err);
 
     detailcart.save((err, detailcart) => {
       if (err) {
@@ -38,73 +48,177 @@ exports.insert = (req, res) => {
       }
       res.end();
     });
-
   }
 };
 
+exports.find = async (req, res) => {
+  const cartId = await Cart.findOne({ user_id: req.userId }).exec();
 
-exports.find =  (req, res) => {
   DetailCart.find({
-   ...req.body.cartId
+    cartId: cartId._id,
   })
     .populate("productId")
-    .exec( async (err, detailcarts) => {
+    .exec(async (err, detailcarts) => {
       if (err) {
         res.status(500).send({ message: err });
       }
       if (detailcarts) {
         const product = detailcarts.map((detailcart) => {
           return new Promise((rel, rej) => {
-            Product.findOne({
-              _id : detailcart.productId
-            })
-            .populate("brand")
-            .exec((err, products) => {
-              if (err) { 
-                return rej(err);
-              }
-              if (products){
-                return rel(products)
-              }
-    
-            })
-          })
-           
+            Product.findOne(
+              {
+                _id: detailcart.productId,
+              },
+              "-quantity"
+            )
+              .populate("brand", "-_id")
+              .exec((err, products) => {
+                if (err) {
+                  return rej(err);
+                }
+                if (products) {
+                  products.quantity = detailcart.quantity;
+                  return rel(products);
+                }
+              });
+          });
         });
-        const  data = await Promise.all(product);
+        const data = await Promise.all(product);
         res.status(200).send(data);
         res.end();
       }
     });
-}
+  /// async await
+  /* 
+   try{
+      var detailcarts = await DetailCart.find({
+      ...req.body,
+    })
+      .populate("productId")
+      .exec();
 
-
-exports.delete = async ( req, res) => {
-  // DetailCart.deleteMany({
-  //   cartId : 
-  // })
- 
-  const deleteMani = req.body.productId.map((product) => {
+ const product = detailcarts.map((detailcart) => {
       return new Promise((rel, rej) => {
-          DetailCart.findOneAndDelete({ 
-            cartId : req.body.cartId,
-            productId : product
-          }).exec((err, deleted) => {
+        Product.findOne(
+          {
+            _id: detailcart.productId,
+          },
+          "-quantity"
+        )
+          .populate("brand", "-_id")
+          .exec((err, products) => {
             if (err) {
               return rej(err);
             }
-            if(deleted) {
-             return  rel(deleted);
+            if (products) {
+              products.quantity = detailcart.quantity;
+              return rel(products);
             }
-            if(!deleted){
-             return rej("faild");
-            }
-            
-          })
-      })
-  })
+          });
+      });
+    });
+    const data = await Promise.all(product);
+    res.status(200).send(data);
+    res.end();
+      
+   }
+   catch(error){
+       res.status(500).send({ message: err });
+   }*/
+};
 
-  const data = await Promise.all(deleteMani).then(res => res).catch(err => err);
-  console.log(data);
+exports.delete = async (req, res) => {
+  const deleteMani = req.body.productId.map((product) => {
+    return new Promise((rel, rej) => {
+      DetailCart.findOneAndDelete({
+        cartId: req.cartId,
+        productId: product,
+      }).exec((err, deleted) => {
+        if (err) {
+          return rej(err);
+        }
+        if (deleted) {
+          return rel(deleted);
+        }
+        if (!deleted) {
+          return rej("faild");
+        }
+      });
+    });
+  });
+
+  const data = await Promise.all(deleteMani)
+    .then((res) => res)
+    .catch((err) => err);
+  await res.status(200).send({ message: "data" });
+  await res.end();
+};
+
+exports.sumtotal = async (req, res) => {
+  var data = await DetailCart.aggregate([
+    {
+      $match: {
+        cartId: ObjectId(req.cartId),
+      },
+    },
+    {
+      $project: {
+        result: { $multiply: ["$price", "$quantity"] },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        sum: { $sum: "$result" },
+      },
+    },
+  ]);
+
+  res.status(200).send({ total: data[0].sum });
   res.end();
-}
+};
+
+exports.onePartTotal = async (req, res) => {
+  const sum = req.body.productId.map((product) => {
+    return new Promise((rel, rej) => {
+      var data = DetailCart.aggregate([
+        {
+          $match: {
+            cartId: ObjectId(req.cartId),
+            productId: {
+              $in: [ObjectId(product)],
+            },
+          },
+        },
+        {
+          $project: {
+            result: { $multiply: ["$price", "$quantity"] },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            sum: { $sum: "$result" },
+          },
+        },
+      ]);
+      return rel(data);
+    });
+  });
+
+  var initial = 0;
+  const total = await Promise.all(sum);
+
+  const totalbil = total.map((e) => {
+    return new Promise((rel, rej) => {
+      return rel(e[0].sum);
+    });
+  });
+  const datatotal = await Promise.all(totalbil);
+  datatotal.forEach((element) => {
+    initial += element;
+  });
+
+  await res.send({ total: initial });
+  await res.end();
+};

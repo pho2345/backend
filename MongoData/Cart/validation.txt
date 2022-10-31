@@ -1,0 +1,12 @@
+{
+  $jsonSchema: {
+    required: [
+      'user_id'
+    ],
+    properties: {
+      user_id: {
+        bsonType: 'objectId'
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "635fb3862065c0cc0d7d41cd"
+  },
+  "quantity": 1,
+  "bill_id": {
+    "$oid": "635faf9b2065c0cc0d7d41c4"
+  },
+  "productId": {
+    "$oid": "635fa8f711d3e879d46aa3a8"
+  },
+  "price": 300
+},{
+  "_id": {
+    "$oid": "635fb3862065c0cc0d7d41ce"
+  },
+  "quantity": 11,
+  "bill_id": {
+    "$oid": "635faf9b2065c0cc0d7d41c4"
+  },
+  "productId": {
+    "$oid": "635e907559d2ca55d55deff8"
+  },
+  "price": 300
+}]
