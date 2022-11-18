@@ -21,8 +21,12 @@ exports.find = async (req, res) => {
         nameproduct: ex,
       };
 
+  if (req.query._id) {
+    filter._id = req.query._id;
+  }
+
   Product.find(filter)
-    .limit(2)
+    .limit(6)
     .skip((page - 1) * 8)
     .populate("brand", "-_id")
     .exec((err, product) => {
