@@ -12,17 +12,21 @@ exports.find = async (req, res) => {
     : [];
   const filter = req.query.brands
     ? {
-        nameproduct: ex,
+        //nameproduct: ex,
         brand: {
           $in: array,
         },
       }
     : {
-        nameproduct: ex,
+        // nameproduct: ex,
       };
 
   if (req.query._id) {
     filter._id = req.query._id;
+  }
+
+  if (req.query.nameproduct) {
+    filter.nameproduct = ex;
   }
 
   Product.find(filter)
