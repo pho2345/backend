@@ -28,7 +28,7 @@ isAdmin = (req, res, next) => {
     }
     Role.find(
       {
-        _id: { $in: user.roles }
+        _id: { $in: user.roles },
       },
       (err, roles) => {
         if (err) {
@@ -36,11 +36,10 @@ isAdmin = (req, res, next) => {
           return;
         }
 
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            next();
-            return;
-          }
+        if (roles[0].name === "admin") {
+          req.checkSeenDetailBill = true;
+          next();
+          return;
         }
 
         res.status(403).send({ message: "Require Admin Role!" });
@@ -59,7 +58,7 @@ isModerator = (req, res, next) => {
 
     Role.find(
       {
-        _id: { $in: user.roles }
+        _id: { $in: user.roles },
       },
       (err, roles) => {
         if (err) {
@@ -84,6 +83,6 @@ isModerator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator
+  isModerator,
 };
 module.exports = authJwt;

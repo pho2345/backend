@@ -67,7 +67,7 @@ exports.insert = async (req, res) => {
 
 exports.find = async (req, res) => {
   DetailBill.find({
-    bill_id: req.body.bill_id._id,
+    bill_id: req.params.id,
   })
     .populate("productId")
     .exec(async (err, detailbills) => {

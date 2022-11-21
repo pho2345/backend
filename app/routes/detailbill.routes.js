@@ -1,11 +1,13 @@
+//const expressvali = require("express-validation");
 const {
   verifyBill,
   verifyDetailCart,
   verifyCart,
   authJwt,
 } = require("../middlewares");
-const controller = require("../controllers/detailBill.controller");
 
+const controller = require("../controllers/detailBill.controller");
+// console.log(expressvali);
 module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
@@ -26,7 +28,11 @@ module.exports = function (app) {
     controller.insert
   );
 
-  app.post("/api/detailbill", [], controller.find);
+  app.get(
+    "/api/detailbill/:id",
+    [authJwt.verifyToken, verifyBill.checkIdUserAndIdBill],
+    controller.find
+  );
 
   //   app.post(
   //     "/api/detailcart/delete",

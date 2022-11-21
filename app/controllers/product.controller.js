@@ -18,19 +18,18 @@ exports.find = async (req, res) => {
         },
       }
     : {
-        // nameproduct: ex,
+        //nameproduct: ex,
       };
 
   if (req.query._id) {
     filter._id = req.query._id;
   }
-
   if (req.query.nameproduct) {
     filter.nameproduct = ex;
   }
 
   Product.find(filter)
-    .limit(6)
+    .limit(8)
     .skip((page - 1) * 8)
     .populate("brand", "-_id")
     .exec((err, product) => {
@@ -48,6 +47,7 @@ exports.find = async (req, res) => {
           value: product,
           count: count,
         });
+        res.end();
         return;
       });
     });

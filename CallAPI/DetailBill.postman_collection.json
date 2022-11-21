@@ -41,6 +41,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Show_DetailBill",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWZkNjYxNmI4NTNiYmRiOWE5NDNiYyIsImlhdCI6MTY2OTA0MzIzNywiZXhwIjoxNjY5MTI5NjM3fQ.d9Udp-Aop5v3uXvl68mKiYg5oNIx-i9m9o2mVG9j_JM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/detailbill/635faf9b2065c0cc0d7d41c4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"detailbill",
+						"635faf9b2065c0cc0d7d41c4"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -1,23 +1,32 @@
 const db = require("../models");
 const Cart = db.cart;
 
-exports.insert = (req, res) => {
+exports.insert = async (req, res) => {
+  console.log(req.userId);
+
   const cart = new Cart({
     user_id: {
       _id: req.userId,
     },
   });
 
-  cart.save((err, cart) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    if (cart) {
-      res.end();
-      return;
-    }
-  });
+  try {
+    var checkCart = await cart.save();
+
+    return checkCart;
+  } catch (error) {
+    return { message: error };
+  }
+  //   (err, cart) => {
+  //   if (err) {
+  //     res.status(500).send({ message: err });
+  //     return false;
+  //   }
+  //   if (cart) {
+  //     //res.send({ message: "User was registered successfully!" });
+  //     return true;
+  //   }
+  // });
 };
 
 exports.updateTotal = (req, res) => {
