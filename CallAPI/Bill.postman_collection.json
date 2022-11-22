@@ -77,6 +77,39 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getAllBill of admin, user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2IxZTU3ZWU2MzUwMDI3NTMwZmI4ZCIsImlhdCI6MTY2OTEzMzUwNCwiZXhwIjoxNjY5MjE5OTA0fQ.zj59ziXIZQosTbUYewa2JjsbXXieX7wkL7ZcxO6c6A8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/bill",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"bill"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
