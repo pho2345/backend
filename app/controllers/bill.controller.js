@@ -93,10 +93,12 @@ exports.insert = async (req, res) => {
 // };
 
 exports.find = async (req, res) => {
-  Bill.find(
-    { user_id: { _id: "6342fb8e10228608f0e08031" } },
-    "-user_id -total"
-  ).exec((err, bill) => {
+  var filter = {};
+  if (!req?.checkSeenDetailBill) {
+    filter.user_id = req.userId;
+    console.log("user");
+  }
+  Bill.find(filter).exec((err, bill) => {
     if (bill) {
       res.status(200).send(bill);
     }
@@ -116,7 +118,7 @@ exports.updateStatus = async (req, res) => {
     { $set: { status: req.body.status } }
   ).exec((err, bill) => {
     if (bill) {
-      res.status(200).send(bill);
+      res.status(200).send({ message: "update status success" });
     }
     if (err) {
       res.status(500).send({ message: err });

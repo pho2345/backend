@@ -1,4 +1,9 @@
-const { authJwt, verifyDetailCart, verifyCart } = require("../middlewares");
+const {
+  authJwt,
+  verifyDetailCart,
+  verifyCart,
+  verifyBill,
+} = require("../middlewares");
 const controller = require("../controllers/bill.controller");
 
 module.exports = function (app) {
@@ -21,7 +26,11 @@ module.exports = function (app) {
 
   //app.post("/api/bill/update", [], controller.updateTotal);
 
-  app.get("/api/bill", [], controller.find);
+  app.get(
+    "/api/bill",
+    [authJwt.verifyToken, verifyBill.checkIdUserAndIdBill2],
+    controller.find
+  );
   app.patch(
     "/api/bill/update",
     [authJwt.verifyToken, authJwt.isAdmin],

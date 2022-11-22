@@ -60,9 +60,54 @@ checkIdUserAndIdBill = (req, res, next) => {
   });
 };
 
+checkIdUserAndIdBill2 = (req, res, next) => {
+  User.findById(req.userId).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    Role.find(
+      {
+        _id: { $in: user.roles },
+      },
+      (err, roles) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        console.log(user);
+
+        if (roles[0].name === "admin") {
+          req.checkSeenDetailBill = true;
+          next();
+          return;
+        }
+
+        Bill.findOne({
+          user_id: req.userId,
+        }).exec((err, bill) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+
+          if (!bill) {
+            res.status(404).send({ message: "Not find bill" });
+            return;
+          }
+
+          next();
+        });
+
+        return;
+      }
+    );
+  });
+};
 const verifyBill = {
   checkIdBill,
   checkIdUserAndIdBill,
+  checkIdUserAndIdBill2,
 };
 
 module.exports = verifyBill;
